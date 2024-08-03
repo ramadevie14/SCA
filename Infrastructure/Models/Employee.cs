@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Models
@@ -9,7 +10,8 @@ namespace Infrastructure.Models
         {
 
         }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EmployeeId { get; set; }
         public string EmployeeNumber { get; set; }
         public string EmployeeName { get; set; }

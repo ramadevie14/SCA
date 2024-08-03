@@ -10,9 +10,10 @@ namespace Infrastructure.Models
         {
         }
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CountryId { get; set; }
-        public string ContryName { get; set; }
-        public string ContryCode { get; set; }
+        public string CountryName { get; set; }
+        public string CountryCode { get; set; }
 
 
     }

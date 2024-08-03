@@ -29,11 +29,11 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CountryId"), 1L, 1);
 
-                    b.Property<string>("ContryCode")
+                    b.Property<string>("CountryCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContryName")
+                    b.Property<string>("CountryName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
