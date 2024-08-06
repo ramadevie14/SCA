@@ -28,4 +28,10 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Middleware\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+  </ItemGroup>
 </Project>

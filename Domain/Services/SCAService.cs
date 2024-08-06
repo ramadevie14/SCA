@@ -60,6 +60,51 @@ namespace Domain.Services
             }
             
         }
+
+        public string CreateEmployee(EmployeeDTO employeedto)
+        {
+            try
+            {
+                var employee = new Employee();
+                employee.EmployeeName = employeedto.EmployeeName;
+                employee.EmployeeNumber = employeedto.EmployeeNumber;
+                employee.ContactNo = employeedto.ContactNo;
+                employee.StoreId = _scarepository.GetStoreId(employeedto.StoreNumber);
+                _scarepository.CreateEmployee(employee);
+                return "Successfullly created employee profile";
+            }
+            catch(Exception ex)
+            {
+                return "Unable to create employee" + ex.Message.ToString();
+            }
+
+        }
+
+        public List<EmployeeDTO> GetEmployeeData(int storenumber)
+        {
+
+            try
+            {
+
+                var result = _scarepository.GetEmployeeData(storenumber);
+                List<EmployeeDTO> employeeList = new List<EmployeeDTO>();
+                foreach (var employee in result)
+                {
+                    var employeeDto = new EmployeeDTO();
+                    employeeDto.EmployeeName = employee.EmployeeName;
+                    employeeDto.EmployeeNumber = employee.EmployeeNumber;
+                    employeeDto.ContactNo = employee.ContactNo;
+                    employeeDto.StoreNumber = employee.Store.StoreNumber;
+                    employeeList.Add(employeeDto);
+                }
+
+                return employeeList;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
 

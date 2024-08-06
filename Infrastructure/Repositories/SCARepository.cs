@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Application.Exceptions;
 using Infrastructure.Interface;
 using Infrastructure.Models;
 
@@ -32,9 +34,24 @@ namespace Infrastructure.Repositories
 			}
 		}
 
-        public string GetEmployeeData()
+        public List<Employee> GetEmployeeData(int storenumber)
         {
-			return "okay";
+			
+
+				var result = _scadbcontext.Stores.FirstOrDefault(s => s.StoreNumber == storenumber);
+				if (result != null)
+				{
+					var employeedata = _scadbcontext.Employees.Where(e => e.StoreId == result.Storeid).ToList();
+
+					return employeedata;
+				}
+				else
+				{
+					var myException = new NotFoundException("Store not found" );
+					throw myException;
+				}
+			
+			
         }
 
         public bool CheckIfCountryExist(string countryCode)
@@ -46,19 +63,37 @@ namespace Infrastructure.Repositories
 
         public int GetCountryId(string countryCode)
         {
-			try
-			{
 				var country= _scadbcontext.Countries.FirstOrDefault(x => x.CountryCode == countryCode);
 				if (country != null)
 					return country.CountryId;
 				else
-					throw new Exception("Country Id does not exist");
-			}
-			catch(Exception ex)
-			{
-				throw ex;
-			}
+					throw new NotFoundException("Country Id does not exist");
+			
+		
         }
+
+        public int CreateEmployee(Employee employee)
+        {
+			_scadbcontext.Employees.Add(employee);
+			var result=_scadbcontext.SaveChanges();
+			return result;
+        }
+
+        
+
+        public int GetStoreId(int StoreNumber)
+        {
+			
+				var store = _scadbcontext.Stores.FirstOrDefault(x => x.StoreNumber == StoreNumber);
+				if (store != null)
+					return store.Storeid;
+				else
+					throw new NotFoundException( "store does not exist");
+		
+
+        }
+
+
     }
 }
 

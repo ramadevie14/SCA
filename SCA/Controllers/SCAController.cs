@@ -1,6 +1,7 @@
 ﻿using System;
 using Domain.Interface;
 using Domain.Models;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers
@@ -22,13 +23,32 @@ namespace Application.Controllers
 			return result;
 			
 		}
-		[HttpPost]
+		[HttpHead]
 		public string CreateStore(StoreDTO storedto)
 		{
 			var result = _iscaservice.CreateStore(storedto);
 			return result;
 		}
-		
+		[HttpPost]
+		public string CreateEmployee(EmployeeDTO employeedto)
+		{
+			var result = _iscaservice.CreateEmployee(employeedto);
+			return result;
+
+		}
+		[HttpGet]
+		public List<EmployeeDTO> GetEmployeeData(int storenumber)
+		{
+			try
+			{
+				return _iscaservice.GetEmployeeData(storenumber);
+			}
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
+
 	}
 }
 

@@ -1,4 +1,5 @@
 ﻿
+using Application.Middleware;
 using Domain.Interface;
 using Domain.Services;
 using Infrastructure;
@@ -34,6 +35,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.Run();
 

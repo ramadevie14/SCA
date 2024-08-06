@@ -9,7 +9,9 @@ namespace Infrastructure.Interface
 		public int CreateCountry(Country country);
 		public bool CheckIfCountryExist(string countryCode);
 		public int GetCountryId(string countryCode);
-		public string GetEmployeeData();
+		public List<Employee> GetEmployeeData(int employeenumber);
+		public int CreateEmployee(Employee employee);
+		public int GetStoreId(int StoreNumber);
 
 	}
 
