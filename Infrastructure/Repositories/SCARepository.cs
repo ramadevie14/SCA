@@ -81,14 +81,13 @@ namespace Infrastructure.Repositories
 
         
 
-        public int GetStoreId(int StoreNumber)
+        public Store GetStoreId(int StoreNumber)
         {
 			
 				var store = _scadbcontext.Stores.FirstOrDefault(x => x.StoreNumber == StoreNumber);
-				if (store != null)
-					return store.Storeid;
-				else
-					throw new NotFoundException( "store does not exist");
+				
+					return store;
+				
 		
 
         }

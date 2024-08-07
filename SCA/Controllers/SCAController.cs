@@ -1,6 +1,8 @@
 ﻿using System;
+using Application.Exceptions;
 using Domain.Interface;
 using Domain.Models;
+using FluentValidation;
 using Infrastructure.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +13,11 @@ namespace Application.Controllers
     public class SCAController:ControllerBase
 	{
 		private readonly ISCAService _iscaservice;
-
-		public SCAController(ISCAService iscaservice)
+		private readonly IValidator<EmployeeDTO> _validator;
+		public SCAController(ISCAService iscaservice,IValidator<EmployeeDTO> validator)
 		{
 			_iscaservice = iscaservice;
+			_validator = validator;
 		}
 		[HttpPut]
 		public string CreateCountry(CountryDTO countrydto)
@@ -32,8 +35,22 @@ namespace Application.Controllers
 		[HttpPost]
 		public string CreateEmployee(EmployeeDTO employeedto)
 		{
-			var result = _iscaservice.CreateEmployee(employeedto);
-			return result;
+			var validator = _validator.Validate(employeedto);
+			if (validator == null)
+			{
+				var result = _iscaservice.CreateEmployee(employeedto);
+				return result;
+			}
+			else
+			{
+				var errorMessage="";
+				foreach(var x in validator.Errors)
+				{
+					errorMessage += x.ErrorMessage;
+				}
+				throw new BadRequestException(errorMessage);
+			}
+
 
 		}
 		[HttpGet]

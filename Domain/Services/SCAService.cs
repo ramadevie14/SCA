@@ -69,7 +69,8 @@ namespace Domain.Services
                 employee.EmployeeName = employeedto.EmployeeName;
                 employee.EmployeeNumber = employeedto.EmployeeNumber;
                 employee.ContactNo = employeedto.ContactNo;
-                employee.StoreId = _scarepository.GetStoreId(employeedto.StoreNumber);
+                var res = _scarepository.GetStoreId(employeedto.StoreNumber);
+                employee.StoreId = res.Storeid;
                 _scarepository.CreateEmployee(employee);
                 return "Successfullly created employee profile";
             }

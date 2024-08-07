@@ -7,15 +7,22 @@ using Infrastructure.Interface;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Application.Validators;
+using FluentValidation;
+using Domain.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssemblyContaining<EmployeeValidator>();
+
+
 builder.Services.AddDbContext<SCADBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddScoped<ISCARepository, SCARepository>();
 builder.Services.AddScoped<ISCAService, SCAService>();
+builder.Services.AddScoped<IValidator<EmployeeDTO>, EmployeeValidator>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(c =>
 {

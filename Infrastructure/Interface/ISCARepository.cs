@@ -11,7 +11,7 @@ namespace Infrastructure.Interface
 		public int GetCountryId(string countryCode);
 		public List<Employee> GetEmployeeData(int employeenumber);
 		public int CreateEmployee(Employee employee);
-		public int GetStoreId(int StoreNumber);
+		public Store GetStoreId(int StoreNumber);
 
 	}
 
